@@ -9,8 +9,15 @@
   </head>
   <body>
     <div id="page">
-      <h1>Social Wall</h1>
+      <h1>How Are You Feeling Today?</h1>
+      <h2>Write one line about it!</h2>
       <form id="message-form" method="POST" action="/messages">
+        <select name="mood">
+          <option value="happy">Happy</option>
+          <option value="meh">Meh</option>
+          <option value="sad">Sad</option>
+          <option value="mad">Mad</option>
+        </select>
         <textarea id="message-body" name="body" placeholder="Enter a message here."></textarea>
         <button type="submit">Post Message</button>
       </form>
@@ -23,6 +30,9 @@
             <li>
               <div class="message-body">
                 <%= message.body %>
+              </div>
+              <div class="mesage-mood">
+                <%= message.mood %>
               </div>
               <div class="message-timestamp">
                 Posted on <%= message.created_at.strftime("%B %d, %Y at %l:%M%p") %>
