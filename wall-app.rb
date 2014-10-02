@@ -10,6 +10,11 @@ class Message
   property :body,       Text,     required: true
   property :created_at, DateTime, required: true
   property :mood,       Text,   required: true
+  property :likes,      Integer, required: true
+  
+  def addLike()
+    self.likes += 1
+  end
 end
 
 DataMapper.finalize()
@@ -18,6 +23,15 @@ DataMapper.auto_upgrade!()
 get("/") do
   records = Message.all(order: :created_at.desc)
   erb(:index, locals: { messages: records })
+end
+
+post ("/messageLike/*") do |id|
+  print "liking"
+  records = Message.all(order: :created_at.desc)
+  message = Message.get(id)
+  message.addLike()
+  message.save
+  redirect("/")
 end
 
 post("/messages") do
@@ -34,7 +48,7 @@ post("/messages") do
   elsif message_mood == "mad"
     mood_message = File.read("bad-messages.txt")
   end
-  message = Message.create(body: message_body, created_at: message_time, mood: mood_message)
+  message = Message.create(body: message_body, created_at: message_time, mood: mood_message, likes: 0)
 
   if message.saved?
     redirect("/")

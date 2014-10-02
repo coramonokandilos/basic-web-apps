@@ -31,9 +31,14 @@
               <div class="message-body">
                 <%= message.body %>
               </div>
-              <div class="mesage-mood">
+               <div class="message-body">
+                <%= message.likes %>
+              </div>
+              <div class="message-mood">
                 <%= message.mood %>
               </div>
+               <form action="/messageLike/<%=message.id%>" method="POST">
+                <button type="submit">Like!</button></form>
               <div class="message-timestamp">
                 Posted on <%= message.created_at.strftime("%B %d, %Y at %l:%M%p") %>
               </div>
