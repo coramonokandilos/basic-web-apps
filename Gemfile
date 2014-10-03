@@ -8,7 +8,7 @@ source "https://rubygems.org"  # Download our libraries from rubygems.org
 
 gem "sinatra",    "~> 1.4.5"   # Sinatra is the web framework we're using
 gem "datamapper", "~> 1.2.0"   # DataMapper is the database library we're using
-
+gem "sinatra-contrib"
 # "development" refers to our local copy, running on our own computer
 group :development do
   gem "sqlite3"                # Use the SQLite3 database locally

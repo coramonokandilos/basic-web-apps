@@ -1,5 +1,6 @@
 require "sinatra"     # Load the Sinatra web framework
 require "data_mapper" # Load the DataMapper database library
+require "sinatra/cookies"
 
 require "./database_setup"
 
@@ -25,13 +26,22 @@ get("/") do
   erb(:index, locals: { messages: records })
 end
 
+get '/jerk.html' do
+  erb(:jerk)
+end
+
 post ("/messageLike/*") do |id|
-  print "liking"
-  records = Message.all(order: :created_at.desc)
-  message = Message.get(id)
-  message.addLike()
-  message.save
-  redirect("/")
+  message_liked = "isliked_#{id}"
+  if (cookies[message_liked] == "true")
+    redirect("/jerk.html")
+  else
+    records = Message.all(order: :created_at.desc)
+    message = Message.get(id)
+    message.addLike()
+    message.save
+    cookies[message_liked] = "true"
+    redirect("/")
+  end
 end
 
 post("/messages") do
