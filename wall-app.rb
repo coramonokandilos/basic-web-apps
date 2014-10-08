@@ -12,6 +12,7 @@ class Message
   property :created_at, DateTime, required: true
   property :mood,       Text,   required: true
   property :likes,      Integer, required: true
+  property :name,       String,     required: true
   
   def addLike()
     self.likes += 1
@@ -48,6 +49,7 @@ post("/messages") do
   message_body = params["body"]
   message_time = DateTime.now
   message_mood = params["mood"]
+  message_name = params["name"]
   mood_message = "Alright"
   if message_mood == "happy" 
     mood_message = File.read("good-messages.txt")
@@ -58,7 +60,7 @@ post("/messages") do
   elsif message_mood == "mad"
     mood_message = File.read("bad-messages.txt")
   end
-  message = Message.create(body: message_body, created_at: message_time, mood: mood_message, likes: 0)
+  message = Message.create(body: message_body, name: message_name, created_at: message_time, mood: mood_message, likes: 0)
 
   if message.saved?
     redirect("/")

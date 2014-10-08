@@ -19,6 +19,7 @@
           <option value="mad">Mad</option>
         </select>
         <textarea id="message-body" name="body" placeholder="Enter a message here."></textarea>
+        <textarea id="name" name="name" placeholder="Enter your name here."></textarea>
         <button type="submit">Post Message</button>
       </form>
       <% if messages.empty? %>
@@ -36,6 +37,9 @@
               </div>
               <div class="message-mood">
                 <%= message.mood %>
+              </div>
+              <div class="message.name"> 
+                <%= message.name %>
               </div>
                <form action="/messageLike/<%=message.id%>" method="POST">
                 <button type="submit">Like!</button></form>
