@@ -9,17 +9,21 @@
   </head>
   <body>
     <div id="page">
-      <h1 style="text-align: center; font-family: Impact">How Are You Feeling Today?</h1>
-      <h2 style="text-align: center; font-family: ">Write one line about it!</h2>
+      <h1>How Are You Feeling Today?</h1>
+      <h2>Write one line about it!</h2>
+      <img src="http://www.inkco.com/images/unicorn.gif"; id="unicornGif"></img>
+
       <form id="message-form" method="POST" action="/messages">
-        <select name="mood">
+        <textarea id="name" name="name" placeholder="Enter your name here."></textarea>
+        <select name="mood" id="names_moods">
           <option value="happy">Happy</option>
           <option value="meh">Meh</option>
           <option value="sad">Sad</option>
           <option value="mad">Mad</option>
         </select>
+        
         <textarea id="message-body" name="body" placeholder="Enter a message here."></textarea>
-        <textarea id="name" name="name" placeholder="Enter your name here."></textarea>
+ 
         <button type="submit">Post Message</button>
       </form>
       <% if messages.empty? %>
@@ -29,6 +33,9 @@
         <ol class="message-list">
           <% messages.each do |message| %>
             <li>
+              <div class="message.name"> 
+                <%= message.name %>
+              </div>
               <div class="message-body">
                 <%= message.body %>
               </div>
@@ -38,9 +45,7 @@
               <div class="message-mood">
                 <%= message.mood %>
               </div>
-              <div class="message.name"> 
-                <%= message.name %>
-              </div>
+
                <form action="/messageLike/<%=message.id%>" method="POST">
                 <button type="submit">Like!</button></form>
               <div class="message-timestamp">

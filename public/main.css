@@ -1,11 +1,15 @@
 body {
-  background-color: white;
+  background-color: black;
   color: rgb(32, 32, 32);
 }
 
 #page {
   margin: 20px auto;
-  width: 400px;
+  width: 600px;
+  font-size: 15px;
+  font-family: helvetica;
+  background-color: gray;
+  
 }
 
 #message-form {
@@ -22,10 +26,21 @@ body {
   width: 100%;
 }
 
+#unicornGif {
+  height: 200px;
+  width: 200px;
+  /*need to make div for unicorn then center div, not center the image itself*/
+ 
+}
+
 .message-list .message-timestamp {
   font-size: 12px;
   font-style: italic;
   margin-bottom: 10px;
   margin-top: 10px;
   text-align: right;
+}
+
+#name_moods{
+  margin-left: 50px;
 }
