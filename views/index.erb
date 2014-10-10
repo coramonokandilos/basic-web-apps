@@ -10,7 +10,7 @@
   <body>
     <div id="page">
       <h1 style="text-align: center; font-family: Impact">How Are You Feeling Today?</h1>
-      <h2 style="text-align: center">Write one line about it!</h2>
+      <h2 style="text-align: center; font-family: ">Write one line about it!</h2>
       <form id="message-form" method="POST" action="/messages">
         <select name="mood">
           <option value="happy">Happy</option>
@@ -45,6 +45,16 @@
                 <button type="submit">Like!</button></form>
               <div class="message-timestamp">
                 Posted on <%= message.created_at.strftime("%B %d, %Y at %l:%M%p") %>
+              </div>
+              <div class="message-comments">
+                <form action="/message/<%= message.id %>/comments" method="POST">
+                    <textarea name="comment_body" placeholder="comment bruh"></textarea>
+                    <button type="submit"> Add Comment </button>
+                    </form>
+                  <h3>Comments</h3>
+                  <% message.comments.each do |comment| %>
+                  <p><%= comment.body %></p>
+                  <% end %>
               </div>
             </li>
           <% end %>

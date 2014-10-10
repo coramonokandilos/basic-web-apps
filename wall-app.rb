@@ -1,6 +1,7 @@
 require "sinatra"     # Load the Sinatra web framework
 require "data_mapper" # Load the DataMapper database library
 require "sinatra/cookies"
+require "sinatra/reloader" if development?
 
 require "./database_setup"
 
@@ -10,13 +11,24 @@ class Message
   property :id,         Serial
   property :body,       Text,     required: true
   property :created_at, DateTime, required: true
-  property :mood,       Text,   required: true
-  property :likes,      Integer, required: true
-  property :name,       String,     required: true
+  property :mood,       Text,     required: true
+  property :likes,      Integer,  required: true
+  property :name,       String,   required: true
+  
+  has n, :comments
   
   def addLike()
     self.likes += 1
   end
+end
+
+class Comment
+  include DataMapper::Resource
+  property :id,        Serial
+  property :body,      Text,       required: true
+  property :created_at, DateTime,   required: true
+  
+  belongs_to :message
 end
 
 DataMapper.finalize()
@@ -67,4 +79,13 @@ post("/messages") do
   else
     erb(:error)
   end
+end
+post ("/message/*/comments") do |message_id|
+  message = Message.get(message_id)
+  comment = Comment.new
+  comment.body = params[:comment_body]
+  comment.created_at=DateTime.now
+  message.comments.push(comment)
+  message.save
+  redirect("/")
 end
