@@ -11,20 +11,21 @@
     <div id="page">
       <h1>How Are You Feeling Today?</h1>
       <h2>Write one line about it!</h2>
-      <img src="http://www.inkco.com/images/unicorn.gif"; id="unicornGif"></img>
-
+      <div id="unicornDiv">
+        <img src="http://www.inkco.com/images/unicorn.gif"; id="unicornGif"></img>
+      </div>
       <form id="message-form" method="POST" action="/messages">
         <textarea id="name" name="name" placeholder="Enter your name here."></textarea>
-        <select name="mood" id="names_moods">
-          <option value="happy">Happy</option>
-          <option value="meh">Meh</option>
-          <option value="sad">Sad</option>
-          <option value="mad">Mad</option>
-        </select>
-        
         <textarea id="message-body" name="body" placeholder="Enter a message here."></textarea>
- 
-        <button type="submit">Post Message</button>
+        <div id="buttonDiv">
+             <select name="mood" id="names_moods">
+            <option value="happy">Happy</option>
+            <option value="meh">Meh</option>
+            <option value="sad">Sad</option>
+            <option value="mad">Mad</option>
+          </select>
+          <button type="submit">Post Message</button>
+        </div>
       </form>
       <% if messages.empty? %>
         <h2>Sorry, no messages. :(</h2>
@@ -53,7 +54,7 @@
               </div>
               <div class="message-comments">
                 <form action="/message/<%= message.id %>/comments" method="POST">
-                    <textarea name="comment_body" placeholder="comment bro"></textarea>
+                    <textarea name="comment_body" placeholder="comment bruh"></textarea>
                     <button type="submit"> Add Comment </button>
                     </form>
                   <h3>Comments</h3>
